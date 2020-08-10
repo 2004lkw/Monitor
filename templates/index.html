@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!-- Main monitor page -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Main Monitor Page CSS-->
+    <link rel="stylesheet" href="/static/CSS/index.css">
+    <!-- Main Monitor Page JS-->
+    <script src="/static/JS/index.js"></script>
+</head>
+
+
+<body>
+    <!-- Main container -->
+    <div class="container-fluid p-0 body-main" id="main-container">
+        <div id="title-container" class="title-container">
+            Monitor
+        </div>
+
+        <div class="main-content" id="main-content">
+            <!-- mian content -->
+            <!-- Mock test -->
+            <div class="container">
+
+                <table class="table-striped table-mods">
+                    <tbody>
+                        <!-- COMMENTED OUT FOR TESTING <tr>
+                            <td>
+                                <h3>test.host.1.com</h3>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <progress id="test.host.1.com-progress" value="76" max="100">76%</progress>
+                            </td>
+                            <td>
+                                <div class="led-yellow led-spacer"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>test.host.2.com</h3>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <progress id="test.host.2.com-progress" value="76" max="100">76%</progress>
+                            </td>
+                            <td>
+                                <div class="led-green led-spacer"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>test.host.3.com</h3>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="bar-container">
+                                    <div class="box-green"></div>
+                                    <div class="box-green"></div>
+                                    <div class="box-green"></div>
+                                    <div class="box-green"></div>
+                                    <div class="box-green"></div>
+                                    <div class="box-red" data-toggle="tooltip" title="14:30"></div>
+                                    <div class="box-green" data-toggle="tooltip" title="14:32"></div>
+                                    <div class="box-green" data-toggle="tooltip" title="14:34"></div>
+                                    <div class="box-red" data-toggle="tooltip" title="14:36"></div>
+                                    <div class="box-green" data-toggle="tooltip" title="14:38"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="led-red led-spacer"></div>
+                            </td>
+                        </tr> -->
+                        {{template_output |safe}}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+        <div class="footer" id="footer">
+            Written by Larry Keith Williams II. Copyright 2020. Monitor is free to use and distribute. Please visit my
+            <a href="https://github.com/2004lkw" target="_blank">github</a> to view this and more.
+        </div>
+    </div>
+</body>
+
+</html>
