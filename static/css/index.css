@@ -21,6 +21,17 @@ body {
     border-bottom-style: double;
     background-color: #d9e7ff;
 }
+
+.minor-row {
+    padding-top: 10px;
+    font-weight: normal;
+    font-size: 14pt;
+    text-align: center;
+}
+
+.title-table {
+    width: 100%;
+}
 /** next color? #c7dcff **/
 
 .body-main {
@@ -159,6 +170,8 @@ body {
     width: 1.5em;
     background-color: green;
     float: left;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
 }
 
 .box-red {
@@ -166,4 +179,6 @@ body {
     width: 1.5em;
     background-color: red;
     float: left;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
 }

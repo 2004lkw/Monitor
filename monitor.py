@@ -65,8 +65,6 @@ def main_route():
             template_output = template_output + host_progress + hostname + host_progress2
             # Add the history, starting with the time.
             thisHostTimeStart = startTime - timedelta(hours = 0, minutes = timeInterval * len(historyResults[hostname]))
-            #thisHostTimeStart = time.strftime("%H:%M:%S", datetime.strptime(str(thisHostTimeStart), "%Y-%m-%d %H:%M:%S"))
-            #thisHostTimeStart = time.strftime("%H:%M:%S", strptime(thisHostTimeStart))
             thisHostTimeStart2 = time.strptime(str(thisHostTimeStart),"%Y-%m-%d %H:%M:%S" )
             thisHostTimeStartStr = time.strftime("%H:%M:%S", thisHostTimeStart2)
             markerCount = 0
@@ -90,11 +88,14 @@ def main_route():
             else:
                 #RED!
                 template_output = template_output + led_red
-
             template_output = template_output +"</td></tr>"
 
+            # current time.
+            timeCur = datetime.now()
+            cur_time_date = timeCur.strftime("%m/%d/%Y %H:%M")
 
-    return render_template('index.html',template_output=template_output)
+    #End of route.
+    return render_template('index.html',template_output=template_output,cur_time_date= cur_time_date)
 
 
 
