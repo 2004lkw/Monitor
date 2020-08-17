@@ -8,6 +8,7 @@ import time
 from datetime import datetime, timedelta
 
 #declares
+hostsFilename = "hosts.txt"
 resultsFilename = "hostspings.txt"
 historyFilename = "hostshistory.txt"
 # Literal strings used to build the HTML
@@ -96,6 +97,25 @@ def main_route():
 
     #End of route.
     return render_template('index.html',template_output=template_output,cur_time_date= cur_time_date)
+
+
+@app.route("/gethosts", methods=['GET'])
+def gethosts_route():
+    # get the hosts and send as a JSON to the front end.
+    if path.exists(historyFilename) is not True:
+        # the path for the hosts file doesn't exist.
+        render_template('no_info.html'), 404
+        exit()
+    # open the file as a JSON
+    hosts={}
+    with open(hostsFilename, "r") as fileHandle:
+        for host in fileHandle:
+            # load each host as a str, remove new lines, and create a dictionary 
+            newhost = str(host)
+            newhost = newhost.rstrip("\n")
+            hosts[newhost]=newhost
+    #return the JSON!
+    return hosts # don't need to jsonify() this since it'a  dict.
 
 
 

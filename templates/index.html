@@ -22,55 +22,111 @@
 
 <body>
     <!-- Main container -->
-    <div class="container-fluid p-0 body-main" id="main-container">
-        <div id="title-container" class="title-container">
-            <td>Monitor</td>
-            <div class="row">
-                <div class="col-sm-3 minor-row">
-                    {{cur_time_date}}
-                </div>
-                <div class="col-sm-3 minor-row">
-                
-                </div>
-                <div class="col-sm-3 minor-row">
-                
-                </div>
-                <div class="col-sm-3 minor-row">
-                
+    <div class="container">
+        <div class="container-fluid p-0 body-main" id="main-container">
+            <!-- Top menu area -->
+            <div id="title-container" class="title-container">
+                <td>Monitor</td>
+                <div class="row">
+                    <div class="col-sm-3 minor-row">
+                        <span style="font-weight: bolder;">{{cur_time_date}}</span>
+                    </div>
+                    <div class="col-sm-3 minor-row">
+                        <div class="zoom"><a href="#">Hosts Edit</a></div>
+                    </div>
+                    <div class="col-sm-3 minor-row">
+                        <div class="zoom"><a href="#" onclick="window.location.reload(true);">Refresh Now</a></div>
+                    </div>
+                    <div class="col-sm-3 minor-row">
+                        <div class="zoom"><a href="#" data-toggle="modal" data-target="#about-modal">About</a></div>
+                    </div>
                 </div>
             </div>
-        </div>
-<!--        <table class="title-table">
-            <tbody>
-                <tr class="minor-row">
-                    <td>{{cur_time_date}}</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                </tr>
-            </tbody>
-        </table>
--->
 
-        <div class="main-content" id="main-content">
-            <!-- mian content -->
-            <!-- Mock test -->
-            <div class="container">
+            <div class="main-content" id="main-content">
+                <!-- mian content -->
+                <!-- Mock test -->
+                <div class="container">
 
-                <table class="table-striped table-mods">
-                    <tbody>
-                        <!-- Main area where the graphs and CSS is shown.-->
-                        {{template_output |safe}}
-                    </tbody>
-                </table>
+                    <table class="table-striped table-mods">
+                        <tbody>
+                            <!-- Main area where the graphs and CSS is shown.-->
+                            {{template_output |safe}}
+                        </tbody>
+                    </table>
 
 
+                </div>
             </div>
-        </div>
 
-        <div class="footer" id="footer">
-            Written by Larry Keith Williams II. Copyright 2020. Monitor is free to use and distribute. Please visit my
-            <a href="https://github.com/2004lkw" target="_blank">github</a> to view this and more.
+            <div class="footer" id="footer">
+                Written by Larry Keith Williams II. Copyright 2020. Monitor is free to use and distribute. Please visit
+                my
+                <a href="https://github.com/2004lkw" target="_blank">github</a> to view this and more.
+            </div>
+
+            <!-- Modals -->
+
+            <div class="modal" id="about-modal">
+                <!-- About Modal -->
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4>About Monitor</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>
+                            <ul>
+                                <li><span style="background-color: black; color: green;">Green</span> LED = All records
+                                    indicate this host is reachable and stable.</li>
+                                <li><span style="background-color: black; color: yellow;">Yellow</span> LED = There has
+                                    been at least one failed attempt to reach this host.</li>
+                                <li><span style="background-color: black; color: red;">Red</span> LED = This host is
+                                    unreachable at the most recent attempt.</li>
+                            </ul>
+                            </p>
+                            <p>Each block is a representation of a unit of time. Red blocks indicate a failed attempt.
+                                Green blocks represent success. Values that appear when you hover over a block indicate
+                                the estimated time that attempt was made.</p>
+                            <p>To fine tune other settings such as duration, time between checks and others, please view
+                                the readme that was distributed with this package.</p>
+                            <p><span style="font-style: italic; font-size: smaller;">Version 1.0 Written by LKW2</span>
+                            </p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="about-modal">
+                <!-- Host Edit Modal -->
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4>Hosts Edit</h4>
+                        </div>
+
+                        <div class="modal-body">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
 </body>

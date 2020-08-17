@@ -17,7 +17,7 @@ hostsFile = "hosts.txt" # name of the hosts file.
 outputFilename = "hostspings.txt" # output of the file.
 historyFilename = "hostshistory.txt" # where to store the output of the history of the hosts.
 interval_amount = 2 # minutes in between checks.
-max_history = 20 # max history to keep.
+max_history = 30 # max history to keep.
 
 # function to ping with.
 def ping(host):

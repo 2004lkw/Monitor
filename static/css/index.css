@@ -182,3 +182,36 @@ body {
     border-right: black 1px solid;
     border-bottom: black 1px solid;
 }
+
+/* unvisited link */
+a:link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* visited link */
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* mouse over link */
+a:hover {
+    border: 1px black;
+    background-color: darkblue;
+    color: white;
+    font-weight: bolder;
+}
+
+/* selected link */
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+/***** Zoom *****/
+
+.zoom a:hover{
+  transform: scale(1.1);
+  transition: all ease 500ms;
+}
