@@ -8,16 +8,17 @@ import time
 # This will ping all hosts in a file and attempt to write out to file if there was a success.
 # Version 1.0  (Test and complete on 8/8/2020)
 
+# variable set up.
 t = time.localtime()
 current_time = time.strftime("%H:%M:%S", t)
-# variable set up.
 hosts = [] # these will be read from file.
 hostsWithResults = {} # dictionary to save results and hosts in matching pairs 
 hostsFile = "hosts.txt" # name of the hosts file.
 outputFilename = "hostspings.txt" # output of the file.
 historyFilename = "hostshistory.txt" # where to store the output of the history of the hosts.
 interval_amount = 2 # minutes in between checks.
-max_history = 30 # max history to keep.
+max_history = 40 # max history to keep.
+DONT_RUN_FILENAME = "connection_no_run.tmp" # this file is to make sure that this script isn't already running.
 
 # function to ping with.
 def ping(host):
@@ -34,19 +35,26 @@ def ping(host):
     return subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0
 
 
+if path.exists(DONT_RUN_FILENAME):
+    # don't run file exists.  Stop script here.
+    exit()
+
 # Load the hosts file here.
 if path.exists(hostsFile) is not True:
     # Files doesn't exist.  Exit.
-    print("nope.  Didn't find it.")
     exit()
 else:
     fileHandle = open(hostsFile,"r")
+    # TODO: Change this to a with statement.
     # for each line in this file, remove the \n and save it as a string to the dictionary.
     for linecounter in fileHandle:
         newLine = str(linecounter)
         newLine = newLine.rstrip("\n")
         hosts.append(newLine)
     fileHandle.close()
+    # create a tmp file telling this script not to run. ***** This is where the tmp file is made *****
+    with open(DONT_RUN_FILENAME, "w") as dontRunFile:
+        dontRunFile.write("DONT_RUN")
 
 # Main code here.
 for counts in hosts:
@@ -114,3 +122,5 @@ jsonRep = json.dumps(hostsWithResults,  indent = 4)
 with open(outputFilename,"w") as outputFilehandle:
     json.dump(hostsWithResults,outputFilehandle)
 
+# finally, delete our file we made to keep this from running in parallel.
+os.remove(DONT_RUN_FILENAME)

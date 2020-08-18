@@ -32,10 +32,11 @@
                         <span style="font-weight: bolder;">{{cur_time_date}}</span>
                     </div>
                     <div class="col-sm-3 minor-row">
-                        <div class="zoom"><a href="#">Hosts Edit</a></div>
+                        <div class="zoom"><a href="#" data-toggle="modal" data-target="#hosts-modal">Hosts Edit</a>
+                        </div>
                     </div>
                     <div class="col-sm-3 minor-row">
-                        <div class="zoom"><a href="#" onclick="window.location.reload(true);">Refresh Now</a></div>
+                        <div class="zoom"><a href="#" id="a-refresh">Refresh Now</a></div>
                     </div>
                     <div class="col-sm-3 minor-row">
                         <div class="zoom"><a href="#" data-toggle="modal" data-target="#about-modal">About</a></div>
@@ -90,6 +91,10 @@
                             <p>Each block is a representation of a unit of time. Red blocks indicate a failed attempt.
                                 Green blocks represent success. Values that appear when you hover over a block indicate
                                 the estimated time that attempt was made.</p>
+                            <p>You can add and remove hosts by clicking on Hosts Edit. From there, select to remove or
+                                add and then use the forms to do so. Keep in mind that adding and removing hosts can
+                                take a few minutes to take effect. In addtion, clicking Refresh Now can speed the
+                                process up a bit but is not a guarantee.</p>
                             <p>To fine tune other settings such as duration, time between checks and others, please view
                                 the readme that was distributed with this package.</p>
                             <p><span style="font-style: italic; font-size: smaller;">Version 1.0 Written by LKW2</span>
@@ -104,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="modal" id="about-modal">
+            <div class="modal" id="hosts-modal">
                 <!-- Host Edit Modal -->
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
@@ -113,7 +118,43 @@
                             <h4>Hosts Edit</h4>
                         </div>
 
-                        <div class="modal-body">
+                        <div class="modal-body" id="choice-panel">
+                            <!-- Choice Panel -->
+                            <div class="text-center">
+                                <div class="choice-panel-text">
+                                    <h5>Add a host or delete one?</h5>
+                                </div>
+                                <button type="button" class="btn btn-info" id="add-host-selection">Add host</button>
+                                <button type="button" class="btn btn-danger button-host-edit"
+                                    id="delete-host-selection">delete host</button>
+                            </div>
+                        </div>
+
+                        <div class="modal-body" id="add-panel">
+                            <!-- Add Panel -->
+                            <div class="text-center">
+                                <div class="choice-panel-text">
+                                    <h5>Type the name of the host you wish to add.</h5>
+                                </div>
+                                <input type="text" class="form-control" placeholder="host-to.add.com"
+                                    id="add-panel-input">
+                                <button type="button" class="btn btn-success button-host-add" id="button-add-host">Add
+                                    Host</button>
+                            </div>
+                        </div>
+
+                        <div class="modal-body" id="remove-panel">
+                            <!-- Remove Panel -->
+                            <div class="text-center">
+                                <div class="choice-panel-text">
+                                    <h5>Select the host to remove.</h5>
+                                </div>
+                                <select class="form-control" id="host-selection" name="host-selection">
+                                    <!-- no options by defualt.  They will have to be added. -->
+                                </select>
+                                <button type="button" class="btn btn-danger button-host-add"
+                                    id="button-remove-host">Remove Host</button>
+                            </div>
                         </div>
 
                         <div class="modal-footer">
@@ -123,8 +164,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
         </div>

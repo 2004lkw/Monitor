@@ -1,8 +1,9 @@
 # Connection tester routes for the connection testing tool.
 # Version 1.0
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 from flask import jsonify
 from os import path
+import os
 import json
 import time
 from datetime import datetime, timedelta
@@ -40,12 +41,10 @@ def main_route():
     if path.exists(resultsFilename) is not True:
         # the path for results doesn't exist.
         return render_template('no_info.html')
-        exit()
 
     if path.exists(historyFilename) is not True:
         # the path for history doesn't exist.
         return render_template('no_info.html')
-        exit()
 
     # open the results and history files and read them. (as json)
     with open(resultsFilename, "r") as fileHandle:
@@ -59,7 +58,7 @@ def main_route():
 
     for hostname in hostResults:
         # filter out for "time", "Interval" to stop errors.
-        if str(hostname) != "time" and str(hostname) != "Interval":
+        if str(hostname) != "time" and str(hostname) != "Interval" and str(hostname) != "":
             #Build the dynamic HTML based off the data. 
             template_output = template_output + host_heading + hostname + host_closing # this is row 1, col 1 and 2 of the table
             historyStr = historyResults[hostname] # get the history for this hostname.
@@ -117,8 +116,59 @@ def gethosts_route():
     #return the JSON!
     return hosts # don't need to jsonify() this since it'a  dict.
 
+@app.route("/addhost", methods=['POST'])
+def sethost_route():
+    # add a new host if the value is good.
+    hostAdd = request.get_json()
+    # this should be a host = 
+    try:
+        # try getting host.
+        addThisHost = hostAdd['host']
+    except:
+        # didn't work.  Request doesn't work.  exit.
+        exit()
+    if "'" in addThisHost or '"' in addThisHost or "&" in addThisHost or " " in addThisHost or "!" in addThisHost:
+        # INVALID CHARACTERS.  DO NOT ALLOW THESE TO BE SAVED
+        exit()
+    else:
+        # Add this host to the list.
+        with open(hostsFilename, "a") as fileHandle:
+            fileHandle.write("\n"+addThisHost)
+    # we got here so it's been added.  Let the browser know:
+    outStat = jsonify(success=True)
+    outStat.status_code = 200
+    return outStat
 
+@app.route("/deletehost", methods=['POST'])
+def removehost_route():
+    # get the host requested to remove.
+    hostReq = request.get_json()
+    hostToRemove = hostReq['remove']
+    print("'"+hostToRemove+"'")
+    # this is just a host = host JSON with one line.
+    with open(hostsFilename,"r") as hostsRead:
+        with open("tmpHosts.txt", "w") as hostsWrite:
+            for txtIn in hostsRead:
+                txtIn=txtIn.rstrip("\n")
+                if txtIn != hostToRemove and txtIn != "":
+                    hostsWrite.write(txtIn+"\n")
+    # delete the old one, rename the new one.
+    os.remove(hostsFilename)
+    os.rename("tmpHosts.txt", hostsFilename)
+    # Exit the route with a return to the browser.    
+    outStat = jsonify(success=True)
+    outStat.status_code = 200
+    return outStat
 
+@app.route("/refresh", methods=['POST'])
+def refresh_route():
+    req = request.get_json()
+    if req['refresh'] == 'now':
+        # requested to refresh.
+        os.system('python3 connection_tester.py')
+    outStat = jsonify(success=True)
+    outStat.status_code = 200
+    return outStat
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
