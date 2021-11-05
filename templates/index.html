@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
+    <title>QMonitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main monitor page -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -26,7 +27,7 @@
         <div class="container-fluid p-0 body-main" id="main-container">
             <!-- Top menu area -->
             <div id="title-container" class="title-container">
-                <td>Monitor</td>
+                <td>QMonitor</td>
                 <div class="row">
                     <div class="col-sm-3 minor-row">
                         <span style="font-weight: bolder;">{{cur_time_date}}</span>
@@ -45,9 +46,12 @@
             </div>
 
             <div class="main-content" id="main-content">
-                <!-- mian content -->
+                <!-- main content -->
                 <!-- Mock test -->
                 <div class="container">
+                    <div class="summary-area-div" id="summary-area">
+                        <!-- Summary Area -->
+                    </div>
 
                     <table class="table-striped table-mods">
                         <tbody>
@@ -91,10 +95,13 @@
                             <p>Each block is a representation of a unit of time. Red blocks indicate a failed attempt.
                                 Green blocks represent success. Values that appear when you hover over a block indicate
                                 the estimated time that attempt was made.</p>
-                            <p>You can add and remove hosts by clicking on Hosts Edit. From there, select to remove or
-                                add and then use the forms to do so. Keep in mind that adding and removing hosts can
-                                take a few minutes to take effect. In addtion, clicking Refresh Now can speed the
-                                process up a bit but is not a guarantee.</p>
+                            <p>You can add and remove hosts by clicking on Hosts Edit. <span
+                                    style="font-style: italic;">(adding and removing hosts can
+                                    take a few minutes to take effect.)</span> In addtion, clicking Refresh Now can
+                                speed the
+                                process up a bit most times. Using the Monitory Summary, you can filter the table by
+                                color
+                                by clicking the number of the status or clicking the total.</p>
                             <p>To fine tune other settings such as duration, time between checks and others, please view
                                 the readme that was distributed with this package.</p>
                             <p><span style="font-style: italic; font-size: smaller;">Version 1.0 Written by LKW2</span>

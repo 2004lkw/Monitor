@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('#remove-panel').hide()
 
     // Unhide the choice panel.  Hide the others.
-    $('#hosts-modal').on('shown.bs.modal', function() {
+    $('#hosts-modal').on('shown.bs.modal', function () {
         $('#choice-panel').show();
         $('#add-panel').hide()
         $('#remove-panel').hide()
@@ -19,6 +19,55 @@ $(document).ready(function () {
         $('#remove-panel').hide()
         $('#add-panel').show();
         $('#add-panel-input').val("");
+    });
+
+    // This creates the summary area.
+    countofgreen = $('.led-green').length;
+    countofyellow = $('.led-yellow').length;
+    countofred = $('.led-red').length;
+    counttotal = $('.bar-container').length;
+    $('#summary-area').append(
+        // the header part of details
+        "<div class='accordion' id='main-details'><div class='card'><div class='card-header' id='card-header-one' style='background-color: #c7d6f0; text-align: center;'>" +
+        '<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#deatails-pane1" aria-expanded="true" aria-controls="deatails-pane1">' +
+        'Monitor Summary' +
+        '</button ></div>' +
+        // the body of the card that makes the details pane.
+        '<div id="deatails-pane1" class="collapse" aria-labelledby="headingOne" data-parent="#main-details">' +
+        '<div class="card-body" style="background-color: #c7d6f0;">' +
+        // the table that's displayed in the details.
+        "<table width='100%'><tbody style='width: 100%; border-bottom: black 1px solid' >" +
+        "<tr style='wdith: 100%;'  id='total-clicky' class='total-clicky'><td colspan='3'>Total  " + counttotal +
+        "<tr style='wdith: 100%;' id='total-clicky-2'>" +
+        "<td class='green-clicky' id='green-clicky'>Good : <span style='color: green; font-weight: bold;'>" + countofgreen + "</span></td>" +
+        "<td class='yellow-clicky' id='yellow-clicky'>yellow : <span style='color: #c2c200; font-weight: bold;'>" + countofyellow + "</span></td>" +
+        "<td class='red-clicky' id='red-clicky'>red : <span style='color: red; font-weight: bold;'>" + countofred + "</span></td>" +
+        "</tbody></table></div ></div ></div ></div >"
+    );
+
+    $('#red-clicky').click(function () {
+        // Hide all but what is red.
+        showOnlyInTables('led-red');
+        showImportants();
+    });
+
+    $('#yellow-clicky').click(function () {
+        // Hide all but what is yellow.
+        showOnlyInTables('led-yellow');
+        showImportants();
+    });
+
+    $('#green-clicky').click(function () {
+        // Hide all but what is green.
+        showOnlyInTables('led-green');
+        showImportants();
+    });
+
+    $('#total-clicky').click(function () {
+        // show everything.
+        $("tr").each(function (index, element) {
+            $(this).show();
+        });
     });
 
     // Click on "Remove host" from the choice panel button.
@@ -46,7 +95,7 @@ $(document).ready(function () {
                 // Got something back...
                 for (var key in result) {
                     // Data has been returned!
-                    $('#host-selection').append("<option>"+ key + "</option>")
+                    $('#host-selection').append("<option>" + key + "</option>")
                 }
             }
         });
@@ -62,9 +111,9 @@ $(document).ready(function () {
         }
         // Determined that this is a real value...
         let outVal = {}
-        outVal['host']=hostVal
+        outVal['host'] = hostVal
         // Sending out...
-        $retv = $.ajax( {
+        $retv = $.ajax({
             type: "POST",
             url: "/addhost",
             data: JSON.stringify(outVal),
@@ -80,9 +129,9 @@ $(document).ready(function () {
         let hostToDelete = $('#host-selection').val();
         // Dictionary to send as json.
         let hostOut = {}
-        hostOut['remove']=hostToDelete;
+        hostOut['remove'] = hostToDelete;
         // Sending out...
-        $retv = $.ajax ( {
+        $retv = $.ajax({
             type: "POST",
             url: "/deletehost",
             data: JSON.stringify(hostOut),
@@ -96,7 +145,28 @@ $(document).ready(function () {
     $('#a-refresh').click(refreshNow);
 });
 
-function refreshNow () {
+function showOnlyInTables(searchid) {
+    let prevelement;
+    searchid = '.' + searchid
+    $("tr").each(function (index, element) {
+        $(this).hide();
+        if ($(this).find(searchid).length != 0) {
+            $(this).show();
+            prevelement.show();
+        }
+        prevelement = $(this);
+    });
+}
+
+function showImportants() {
+    // ensures that important stuff is shown.
+    let tc = $('#total-clicky')
+    let tc2 = $('#total-clicky-2')
+    tc.show();
+    tc2.show();
+}
+
+function refreshNow() {
     let hostOut = {}
     hostOut['refresh'] = 'now';
     // Sending out...
@@ -106,10 +176,10 @@ function refreshNow () {
         data: JSON.stringify(hostOut),
         contentType: "application/json",
         dataType: "json",
-        success: function() {
+        success: function () {
             window.location.reload(true);
         },
-        beforeSend: function() {
+        beforeSend: function () {
             $('body').append('<div id="requestOverlay" class="request-overlay"></div>'); /*Create overlay on demand*/
             $("#requestOverlay").show();/*Show overlay*/
         },

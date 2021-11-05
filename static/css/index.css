@@ -9,6 +9,54 @@ body {
     background-color: #c7dcff;
 }
 
+.total-clicky {
+    /** for the total values **/
+    font-size: larger; 
+    font-weight: bolder;
+    text-align: center;  
+}
+
+
+.red-clicky {
+    /** for the red values **/
+    text-align: right;
+}
+.yellow-clicky {
+    /** for the yellow values **/
+    text-align: center;
+}
+.green-clicky {
+    /** for the green values **/
+}
+
+
+/** Hover clickys **/
+.total-clicky :hover {
+    font-weight: bolder;
+    text-decoration: underline;
+}
+.red-clicky :hover {
+    font-weight: bolder;
+    text-decoration: underline;
+}
+.yellow-clicky :hover {
+    font-weight: bolder;
+    text-decoration: underline;
+}
+.green-clicky :hover {
+    /** for the green values **/
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+
+.summary-area-div {
+    padding-bottom: 16px;
+    padding-top: 5px;
+    width: 100%;
+    /** border-bottom: black 1px solid; **/
+}
+
 .title-container {
     padding-top: 15px;
     padding-bottom: 40px;
